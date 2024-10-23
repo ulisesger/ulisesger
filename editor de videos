@@ -1,0 +1,52 @@
+git clone https://github.com/tu_usuario/editor-de-videos.git
+cd editor-de-videos
+python -m venv venv
+source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
+pip install moviepyfrom moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
+
+def editar_video(input_video, output_video, start_time, end_time, texto):
+    # Cargar el video
+    video = VideoFileClip(input_video)
+
+    # Recortar el video
+    video_cortado = video.subclip(start_time, end_time)
+
+    # Crear un clip de texto
+    texto_clip = TextClip(texto, fontsize=70, color='white')
+    texto_clip = texto_clip.set_position('center').set_duration(video_cortado.duration)
+
+    # Combinar el video y el texto
+    video_final = CompositeVideoClip([video_cortado, texto_clip])
+
+    # Guardar el video final
+    video_final.write_videofile(output_video, codec='libx264', fps=24)
+
+if __name__ == "__main__":
+    input_video = "video_original.mp4"  # Cambia esto al nombre de tu archivo de video
+    output_video = "video_editado.mp4"
+    start_time = (0, 0, 10)  # 10 segundos
+    end_time = (0, 0, 20)    # 20 segundos
+    texto = "¡Hola, mundo!"
+
+    editar_video(input_video, output_video, start_time, end_time, texto)
+# Editor de Videos Simple
+
+Este programa permite editar videos utilizando Python y la biblioteca moviepy. Puedes recortar videos y agregar texto.
+
+## Requisitos
+
+- Python 3.x
+- moviepy
+
+## Instalación
+
+1. Clona este repositorio.
+2. Instala las dependencias:
+   ```bash
+   pip install moviepy
+python editar_video.py
+
+git add .
+git commit -m "Agregar programa de edición de video"
+git push origin main
+
